@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noron Air / Arc Display Compatibility</title>
+  <style>
+    :root { font-family: "Segoe UI", "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", sans-serif; color: #1a1a1a; background: #f6f7f8; }
+    body { margin: 0 auto; max-width: 1100px; padding: 28px 20px 64px; }
+    h1 { font-size: 1.55rem; margin: 0 0 6px; }
+    .sub { color: #555; margin: 0 0 22px; line-height: 1.5; }
+    .reqs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 0 0 22px; }
+    .reqs div { background: #fff; border: 1px solid #e3e5e8; border-radius: 10px; padding: 12px 14px; }
+    .reqs b { display: block; margin-bottom: 4px; }
+    .reqs span { color: #444; font-size: .92rem; }
+    .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 16px; }
+    select, input { font: inherit; padding: 8px 10px; border: 1px solid #ccc; border-radius: 8px; background: #fff; }
+    a.btn { background: #1f6feb; color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #eee; vertical-align: top; font-size: .95rem; }
+    th { background: #f0f2f4; font-weight: 600; }
+    .ok { color: #0a7a32; font-weight: 600; }
+    .mid { color: #9a6700; font-weight: 600; }
+    .no { color: #c00; font-weight: 600; }
+    .empty { background: #fff; padding: 28px; border-radius: 10px; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Noron Air / Arc 显示器兼容清单</h1>
+  <p class="sub">Display compatibility list · 42" / 43" · 按国家查看客户实测结果，并提交你自己的型号。</p>
+  <div class="reqs">
+    <div><b>VESA 200 × 200</b><span>Other patterns will not fit.</span></div>
+    <div><b>厚度 &lt; 78 mm</b><span>Thickness at the mount must be under 78 mm.</span></div>
+    <div><b>必须侧面出线</b><span>The bracket has no rear cable hole.</span></div>
+    <div><b>必须有 Game Mode</b><span>Without it, lag will be unusable.</span></div>
+  </div>
+  <div class="bar">
+    <label>国家 / Country
+      <select id="country"><option value="">全部 / All</option></select>
+    </label>
+    <label>结果 / Result
+      <select id="result">
+        <option value="">全部 / All</option>
+        <option value="works">能用 / Works</option>
+        <option value="partial">勉强 / Issues</option>
+        <option value="no">不能用 / Does not work</option>
+      </select>
+    </label>
+    <input id="q" type="search" placeholder="搜索品牌、型号、商店 / Search">
+    <a class="btn" id="submit" href="https://github.com/noron-official/noron-display-compatibility/issues/new?template=report.yml">提交我的显示器 / Submit yours</a>
+  </div>
+  <div id="out" class="empty">正在读取清单…</div>
+  <script>
+    const RESULT = {
+      works: { cls: "ok", zh: "能用", en: "Works" },
+      partial: { cls: "mid", zh: "勉强", en: "Issues" },
+      no: { cls: "no", zh: "不能用", en: "No" }
+    };
+    const parse = (text) => {
+      const lines = text.trim().split(/\r?\n/);
+      const headers = lines.shift().split(",");
+      return lines.filter(Boolean).map(line => {
+        const cols = [];
+        let cur = "", q = false;
+        for (const ch of line) {
+          if (ch === '"') q = !q;
+          else if (ch === "," && !q) { cols.push(cur); cur = ""; }
+          else cur += ch;
+        }
+        cols.push(cur);
+        const row = {};
+        headers.forEach((h, i) => row[h] = (cols[i] || "").trim());
+        return row;
+      });
+    };
+    const render = (rows) => {
+      const country = document.getElementById("country").value;
+      const result = document.getElementById("result").value;
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      const filtered = rows.filter(r => {
+        if (country && r.country !== country && r.country_code !== country) return false;
+        if (result && r.result !== result) return false;
+        if (q) {
+          const blob = [r.brand, r.model, r.retailer, r.country, r.notes].join(" ").toLowerCase();
+          if (!blob.includes(q)) return false;
+        }
+        return true;
+      });
+      const out = document.getElementById("out");
+      if (!rows.length) {
+        out.className = "empty";
+        out.innerHTML = "目前还没有收录记录。欢迎点击右上角提交第一款显示器。<br>No reports yet. Be the first to submit a display.";
+        return;
+      }
+      if (!filtered.length) {
+        out.className = "empty";
+        out.textContent = "没有符合筛选的记录。 / No rows match these filters.";
+        return;
+      }
+      out.className = "";
+      out.innerHTML = `<table><thead><tr>
+        <th>结果</th><th>国家 / Country</th><th>渠道 / Store</th>
+        <th>品牌型号 / Model</th><th>尺寸</th><th>Game Mode</th>
+        <th>机柜</th><th>备注 / Notes</th>
+      </tr></thead><tbody>${filtered.map(r => {
+        const res = RESULT[r.result] || { cls: "", zh: r.result, en: "" };
+        const name = [r.brand, r.model].filter(Boolean).join(" ");
+        return `<tr>
+          <td class="${res.cls}">${res.zh}${res.en ? " / " + res.en : ""}</td>
+          <td>${r.country || ""}</td>
+          <td>${r.retailer || ""}</td>
+          <td>${name} ${r.product_type ? "<br><small>" + r.product_type + "</small>" : ""}</td>
+          <td>${r.size_inch ? r.size_inch + '"' : ""}</td>
+          <td>${r.game_mode || ""}</td>
+          <td>${r.noron_model || ""}</td>
+          <td>${r.notes || ""}</td>
+        </tr>`;
+      }).join("")}</tbody></table>`;
+    };
+    fetch("data/displays.csv").then(r => r.text()).then(text => {
+      const rows = parse(text);
+      const countries = [...new Set(rows.map(r => r.country).filter(Boolean))].sort();
+      const sel = document.getElementById("country");
+      countries.forEach(c => {
+        const o = document.createElement("option");
+        o.value = c; o.textContent = c; sel.appendChild(o);
+      });
+      const redraw = () => render(rows);
+      sel.addEventListener("change", redraw);
+      document.getElementById("result").addEventListener("change", redraw);
+      document.getElementById("q").addEventListener("input", redraw);
+      redraw();
+    }).catch(() => {
+      document.getElementById("out").textContent = "无法读取清单文件。 / Could not load the list.";
+    });
+  </script>
+</body>
+</html>
