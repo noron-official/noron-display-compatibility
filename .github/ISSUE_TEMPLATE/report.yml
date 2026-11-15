@@ -1,15 +1,14 @@
-name: 提交显示器 / Submit a display
-description: 告诉大家你在哪个国家买了哪款 42/43 寸显示器或电视，Noron Air 或 Arc 能不能用。
+name: Submit a display
+description: Tell others which 42/43" monitor or TV you bought, in which country, and whether it works on Noron Air or Arc.
 title: "[Report] "
 labels: ["display-report"]
 body:
   - type: markdown
     attributes:
       value: |
-        感谢帮忙完善各国兼容清单。请尽量拍照：VESA 孔、安装位厚度、侧面接口。
         Thanks for helping other customers choose a display. Photos of the VESA pattern, mount thickness, and side ports are very helpful.
 
-        **Noron Air / Arc 硬性要求 / Hard requirements**
+        **Noron Air / Arc hard requirements**
         - 42" or 43" monitor or TV
         - VESA **200 × 200**
         - Thickness at the mounting area **< 78 mm**
@@ -18,130 +17,130 @@ body:
   - type: dropdown
     id: result
     attributes:
-      label: 结果 / Result
+      label: Result
       options:
-        - 能用，安装和游戏模式都正常 / Works (install and Game Mode OK)
-        - 能安装，但延迟或不方便 / Installs, but lag or other issues
-        - 不能用 / Does not work
+        - Works (install and Game Mode OK)
+        - Installs, but lag or other issues
+        - Does not work
     validations:
       required: true
   - type: dropdown
     id: noron_model
     attributes:
-      label: 你的机柜 / Your cabinet
+      label: Your cabinet
       options:
         - Noron Air
         - Noron Arc
-        - Air 和 Arc 都试过 / Both
-        - 不确定 / Not sure
+        - Both
+        - Not sure
     validations:
       required: true
   - type: input
     id: country
     attributes:
-      label: 购买国家或地区 / Country or region of purchase
-      description: 例如 United States、Japan、Germany、中国大陆、Hong Kong、Australia。请写购买地，不一定是收货地。
+      label: Country or region of purchase
+      description: For example United States, Japan, Germany, China, Hong Kong, Australia. Use the place of purchase, which may differ from the delivery address.
       placeholder: Japan
     validations:
       required: true
   - type: input
     id: retailer
     attributes:
-      label: 购买渠道 / Where you bought it
-      description: 商店或网站，例如 Amazon US、Best Buy、Bic Camera、JD.com、MediaMarkt。
+      label: Where you bought it
+      description: Store or website, for example Amazon US, Best Buy, Bic Camera, JD.com, MediaMarkt.
       placeholder: Amazon US
     validations:
       required: true
   - type: dropdown
     id: product_type
     attributes:
-      label: 类型 / Type
+      label: Type
       options:
-        - 显示器 / Monitor
-        - 电视 / TV
-        - 不确定 / Not sure
+        - Monitor
+        - TV
+        - Not sure
     validations:
       required: true
   - type: input
     id: brand
     attributes:
-      label: 品牌 / Brand
+      label: Brand
       placeholder: LG
     validations:
       required: true
   - type: input
     id: model
     attributes:
-      label: 型号 / Model
-      description: 请写完整型号，不要只写系列名。包装、说明书或系统设置里通常能找到。
+      label: Model
+      description: Use the full model number, not only the series name. It is usually on the box, in the manual, or in the display settings.
       placeholder: 43UP8000PUA
     validations:
       required: true
   - type: dropdown
     id: size_inch
     attributes:
-      label: 尺寸 / Size
+      label: Size
       options:
         - "42"
         - "43"
-        - 其他（请在备注里说明） / Other (explain in notes)
+        - Other (explain in notes)
     validations:
       required: true
   - type: dropdown
     id: vesa
     attributes:
-      label: VESA 孔距 / VESA pattern
+      label: VESA pattern
       options:
-        - 200 × 200，确认过 / 200 × 200, confirmed
-        - 不是 200 × 200 / Not 200 × 200
-        - 不确定 / Not sure
+        - 200 × 200, confirmed
+        - Not 200 × 200
+        - Not sure
     validations:
       required: true
   - type: input
     id: thickness_mm
     attributes:
-      label: 安装位厚度（mm） / Thickness at the mount (mm)
-      description: 必须小于 78 mm。请量屏幕背面到 VESA 安装面（含凸起）的厚度。
+      label: Thickness at the mount (mm)
+      description: Must be under 78 mm. Measure from the back of the panel to the VESA mounting face, including any bulge.
       placeholder: "65"
     validations:
       required: true
   - type: dropdown
     id: side_exits
     attributes:
-      label: 出线孔位置 / Cable exit location
-      description: 支架背面没有出线孔，电源和信号线必须从侧面出来。
+      label: Cable exit location
+      description: The bracket has no rear cable opening, so power and signal cables must exit from the side.
       options:
-        - 侧面出线，可以走线 / Side exits, cables can route
-        - 只有后面出线 / Rear exits only
-        - 侧面和后面都有 / Both side and rear
-        - 不确定 / Not sure
+        - Side exits, cables can route
+        - Rear exits only
+        - Both side and rear
+        - Not sure
     validations:
       required: true
   - type: dropdown
     id: game_mode
     attributes:
-      label: 游戏模式 / Game Mode
+      label: Game Mode
       options:
-        - 有 Game Mode，延迟可接受 / Has Game Mode, lag is acceptable
-        - 有 Game Mode，但延迟仍高 / Has Game Mode, but lag is still high
-        - 没有游戏模式 / No Game Mode
-        - 不确定 / Not sure
+        - Has Game Mode, lag is acceptable
+        - Has Game Mode, but lag is still high
+        - No Game Mode
+        - Not sure
     validations:
       required: true
   - type: textarea
     id: notes
     attributes:
-      label: 备注 / Notes
-      description: 例如实际延迟感受、是否要拆底座、走线技巧、固件或输入口注意事项、不能用的原因。
+      label: Notes
+      description: For example lag in real use, whether the stand had to be removed, cable routing tips, firmware or input warnings, or why it does not work. Write in your own language if you prefer.
   - type: textarea
     id: photos
     attributes:
-      label: 照片 / Photos
-      description: 请直接把图片拖进这里。建议拍 VESA 孔、安装位侧面（方便看厚度）、侧面接口、装上 Noron 后的走线。
+      label: Photos
+      description: Drag images here. Photos of the VESA holes, a side view of the mount (to show thickness), the side ports, and cable routing on the Noron cabinet are especially helpful.
   - type: checkboxes
     id: confirm
     attributes:
-      label: 确认 / Confirm
+      label: Confirm
       options:
-        - label: 以上信息尽量准确，供其他客户参考。我同意把它整理进公开兼容清单。 / This is accurate to the best of my knowledge, and I agree it may be added to the public list.
+        - label: This is accurate to the best of my knowledge, and I agree it may be added to the public list.
           required: true

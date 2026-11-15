@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 先看安装要求 / Read the requirements first
+  - name: Read the requirements first
     url: https://github.com/noron-official/noron-display-compatibility#requirements
-    about: 提交前请确认尺寸、VESA、厚度、侧面出线和游戏模式。 / Check size, VESA, thickness, side exits, and Game Mode first.
+    about: Check size, VESA, thickness, side exits, and Game Mode before you submit.
