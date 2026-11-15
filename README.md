@@ -6,8 +6,8 @@
 
 This public list is built by customers. Report which 42" or 43" monitor or TV you bought, in which country, and whether it works on Noron Air or Arc, so others can choose by region.
 
-> 清单刚建立，还没有收录记录。欢迎成为第一位提交的客户。
-> The list is new and still empty. You are welcome to add the first report.
+> 已收录第一条厂家实测：飞利浦 Philips 438P1（中国、Australia）。欢迎继续提交你所在国家买到的型号。
+> First manufacturer-tested entry: Philips 438P1 (China and Australia). Please keep submitting the models available in your country.
 
 ---
 
@@ -48,13 +48,14 @@ After review, confirmed reports are added to the list below and to [`data/displa
 
 ## 兼容清单 / Compatibility list
 
-目前还没有公开记录。第一份有效提交进来后，会按国家分行展示，格式如下：
+按国家分行。同一型号若在多个国家有售，会各占一行。
 
-No public reports yet. Once the first confirmed report is in, the list will be grouped by country, in this format:
+Rows are grouped by country. The same model gets one row per country where it is sold.
 
 | 结果 / Result | 国家 / Country | 渠道 / Store | 品牌型号 / Model | 尺寸 / Size | 游戏模式 / Game Mode | 机柜 / Cabinet | 备注 / Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| — | — | — | — | 42 / 43 | — | Air / Arc | 等待客户提交 / Waiting for reports |
+| 能用 / Works | 中国 | 当地零售 | Philips 438P1 | 43 | 有 SmartImage Game | Air / Arc | 厂家实测：完美安装，延迟非常低，显示效果很好。43 英寸 4K 60Hz IPS。官方无底座厚度 64 mm。HDMI / DP / 电源底部向下出线，USB 在侧面。请打开 SmartImage Game。提交时参考售价约 360 美元，请以当地零售为准。 |
+| 能用 / Works | Australia | Local retail | Philips 438P1 | 43 | SmartImage Game | Air / Arc | Manufacturer test: perfect install, very low lag, excellent picture. 43-inch 4K 60Hz IPS. Official depth without stand 64 mm. HDMI / DP / power face down at the bottom; USB on the side. Enable SmartImage Game. Indicative price about USD 360 at the time of this report; check local retail. |
 
 结果标记：
 
